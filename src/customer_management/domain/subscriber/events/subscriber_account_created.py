@@ -1,0 +1,23 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+from customer_management.common.domain_event import DomainEvent
+from customer_management.common.id import Id
+from customer_management.domain.subscriber.service_address_id import ServiceAddressId
+from customer_management.domain.subscriber.subscriber_code import SubscriberCode
+
+if TYPE_CHECKING:
+    from customer_management.domain.subscriber.subscriber import Subscriber
+    from customer_management.domain.subscriber.subscriber_account import (
+        SubscriberAccount,
+    )
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class SubscriberAccountCreated(DomainEvent["Subscriber"]):
+    account_id: Id[SubscriberAccount]
+    subscriber_code: SubscriberCode
+    service_address_id: ServiceAddressId
+
